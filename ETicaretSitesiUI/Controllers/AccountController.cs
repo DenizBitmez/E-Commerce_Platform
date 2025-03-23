@@ -80,6 +80,10 @@ namespace ETicaretSitesiUI.Controllers
                         // Eğer kullanıcı "Admin" rolündeyse, admin paneline yönlendir
                         return RedirectToAction("Index", "Home");
                     }
+                    else if(await _userManager.IsInRoleAsync(user, "Employee"))
+                    {
+                        return RedirectToAction("Index", "EmployeeDashboard");
+                    }
                     else
                     {
                         // Diğer kullanıcıları varsayılan sayfaya yönlendir
@@ -138,6 +142,7 @@ namespace ETicaretSitesiUI.Controllers
         public async Task<IActionResult> UserProfile()
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userName = User.Identity.Name;
 
             if (!int.TryParse(userIdString, out var userId))
             {
@@ -153,15 +158,25 @@ namespace ETicaretSitesiUI.Controllers
                     Phone=u.PhoneNumber,
                     Address=u.Address,
                     Orders = _context.Orders
-                        .Where(o => o.Id == userId) 
+                         .Where(o => o.UserName == userName) // Kullanıcı adına göre filtrele
+                        .OrderByDescending(o => o.OrderDate)
                         .Select(o => new OrderViewModel
                         {
                             OrderId = o.Id,
+                            OrderNumber = o.OrderNumber,
                             OrderDate = o.OrderDate,
                             orderState = o.orderState,
                             Total = o.Total,
-                            ShippingInfo= o.ShippingInfo
-
+                            ShippingInfo = o.ShippingInfo,
+                            Address = o.Address,
+                            City = o.City,
+                            OrderLines = o.OrderLines.Select(ol => new OrderLineViewModel
+                            {
+                                Id = ol.Id,
+                                Quantity = ol.Quantity,
+                                Price = ol.Price,
+                                ProductName = ol.Product.Name
+                            }).ToList()
                         })
                         .ToList()
                 })

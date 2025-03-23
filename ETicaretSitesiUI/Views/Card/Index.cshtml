@@ -54,9 +54,69 @@ else
         </tfoot>
     </table>
 }
-<div class="w-75">
+@* <div class="w-75">
     <a asp-action="List" asp-controller="Home" class="float-start">Alışverişe devam et</a>
     <a asp-action="CheckOut" asp-controller="Card" class="float-end">Alışverişe Tamamla</a>
+</div> *@
+
+<div class="shopping-actions">
+    <a asp-action="List" asp-controller="Home" class="continue-shopping">
+        <i class="fas fa-arrow-left"></i> Alışverişe Devam Et
+    </a>
+    <a asp-action="CheckOut" asp-controller="Card" class="checkout">
+        Alışverişi Tamamla <i class="fas fa-arrow-right"></i>
+    </a>
 </div>
 
+
+<style>
+    .shopping-actions {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .shopping-actions a {
+        padding: 10px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .continue-shopping {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .continue-shopping:hover {
+        background-color: #5a6268;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .checkout {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .checkout:hover {
+        background-color: #218838;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .continue-shopping i {
+        font-size: 1.1em;
+    }
+
+    .checkout i {
+        font-size: 1.1em;
+    }
+</style>
 

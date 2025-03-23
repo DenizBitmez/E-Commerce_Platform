@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Hoş Geldiniz, @User.Identity.Name!</h2>
+
+<p>Çalışan Dashboard'una erişiminiz var. Aşağıdaki bağlantıları kullanarak siparişleri ve kategorileri görüntüleyebilirsiniz.</p>
+
+<ul>
+    <li><a asp-action="Orders">Siparişleri Görüntüle</a></li>
+    <li><a asp-action="Categories">Kategorileri Görüntüle</a></li>
+</ul>
+

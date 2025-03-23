@@ -1,0 +1,28 @@
+﻿@using ETicaretData.ViewModels
+@model IEnumerable<CategoryItem>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h2>Kategoriler</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kategori ID</th>
+            <th>Kategori Adı</th>
+            <th>Açıklama</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>@category.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

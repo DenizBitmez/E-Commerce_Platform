@@ -302,6 +302,7 @@ namespace ETicaretSitesiUI.Controllers
                 try
                 {
                     var orderNumber = Guid.NewGuid().ToString("N");
+                    var userName = User.Identity.Name;
 
                     var order = new Order
                     {
@@ -309,7 +310,7 @@ namespace ETicaretSitesiUI.Controllers
                         Total = cart.Sum(x => x.Product.Price * x.Quantity),
                         OrderDate = DateTime.Now,
                         orderState = OrderState.Completed,
-                        UserName = details.UserName,
+                        UserName = userName,
                         AddressTitle = details.AddressTitle,
                         Address = details.Address,
                         City = details.City,

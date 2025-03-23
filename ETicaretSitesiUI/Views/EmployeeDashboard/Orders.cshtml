@@ -1,0 +1,31 @@
+﻿@using ETicaretData.ViewModels
+@model IEnumerable<OrderViewModel>
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Siparişler</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Müşteri Adı</th>
+            <th>Sipariş Tarihi</th>
+            <th>Toplam Tutar</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>@order.Total.ToString("C")</td>
+                <td>@order.orderState</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

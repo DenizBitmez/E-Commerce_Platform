@@ -23,5 +23,6 @@ namespace ETicaretData.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<ReviewViewModel> Reviews { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }
