@@ -1,0 +1,123 @@
+﻿@using ETicaretData.ViewModels
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bilgileri Düzenle</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Adı</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Phone">Telefon</label>
+        <input asp-for="Phone" class="form-control" name="Phone" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address">Adres</label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+   @*  <div class="profile-container">
+        <!-- Geri Dön Butonu -->
+        <button class="btn btn-secondary" onclick="window.location.href='@Url.Action("UserProfile", "Account")'">Geri Dön</button>
+    </div> *@
+    <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+
+    
+</form>
+
+<style>
+    /* Genel Sayfa Stili */
+    /* Genel Sayfa Stili */
+    body {
+        background-color: #f9f9f9;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Başlık Stil */
+    h2 {
+        text-align: center;
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    /* Başarı Mesajı */
+    .alert-success {
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* Form Stili */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Grup */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Input Alanları */
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+        transition: all 0.3s ease;
+    }
+
+        input:focus {
+            border-color: #007bff;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+    /* Button Stili */
+    button {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        background-color: #007bff;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+</style>

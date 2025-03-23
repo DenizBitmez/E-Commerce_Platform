@@ -1,0 +1,53 @@
+﻿@using ETicaretData.ViewModels
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <h2>Profil Bilgileriniz</h2>
+<ul>
+    <li>Ad: @Model.FirstName</li>
+    <li>Soyad: @Model.Surname</li>
+    <li>Telefon: @Model.Phone</li>
+</ul>
+
+<h3>Siparişleriniz</h3>
+@if (Model.Orders.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sipariş Numarası</th>
+                <th>Tarih</th>
+                <th>Toplam</th>
+                <th>Ürünler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.Total.ToString("c")</td>
+                    <td>
+                        <ul>
+                            @foreach (var item in order.OrderLines)
+                            {
+                                <li>@item.ProductName - @item.Quantity Adet - @item.Price.ToString("c")</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz siparişiniz bulunmamaktadır.</p>
+}
+ *@
+
+

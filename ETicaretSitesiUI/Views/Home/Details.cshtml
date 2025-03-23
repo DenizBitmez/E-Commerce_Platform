@@ -1,0 +1,276 @@
+﻿@using ETicaretData.ViewModels
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <img width="50%" src="@Model.Product.Image" alt="" class="img-fluid rounded-3">
+    </div>
+    <div class="col-md-6">
+        <h1>@Model.Name</h1>
+        <span class="badge text-primary">@Model.Product.Stock</span>
+        <span class="badge text-secondary">#0342216</span>
+        <div class="mt-1">
+            <p class="lead">
+                @Model.Product.Description
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-warning">
+                <i class="fa-solid fa-star"></i> 
+               <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+                <span class="badge text-success">60</span>
+            </div>
+            <div class="col-md-8">
+                <p class="lead">
+                    <a href="" class="text-decoration-none">Read a review</a>
+                </p>
+            </div>
+        </div>
+        <div class="mb-1">
+            <span class="badge text-danger fs-4 fw-bold rounded">@Model.Price.ToString("c")</span>
+        </div>
+        <div>
+            <a asp-action="Buy" asp-controller="Card" asp-route-id="@Model.Id" class="btn btn-success">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span class="badge">Add To Cart</span>
+            </a>
+        </div>
+        <div class="mt-3">
+            <button id="completePurchase" class="btn btn-primary">
+                <i class="fa-solid fa-credit-card"></i> Alışverişi Tamamla
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Sekmeler -->
+<ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Description</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment-tab-pane" type="button" role="tab" aria-controls="payment-tab-pane" aria-selected="false">Payment Methods</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">Reviews</button>
+    </li>
+</ul>
+
+<!-- Sekme İçerikleri -->
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="desc-tab-pane" role="tabpanel" aria-labelledby="desc-tab" tabindex="0">
+        @Model.Product.Description
+    </div>
+    <div class="tab-pane fade" id="payment-tab-pane" role="tabpanel" aria-labelledby="payment-tab" tabindex="0">
+        <p>
+            Ödeme yöntemleri:
+            <br>✅ Kredi Kartı (Visa, MasterCard, AMEX)
+            <br>✅ Havale/EFT
+            <br>✅ Kapıda Ödeme (Sadece belirli bölgelerde)
+            <br>
+        </p>
+    </div>
+    <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+        <div class="product-details">
+            <!-- Yorumlar -->
+            <div class="reviews-section">
+                <h3>Reviews</h3>
+
+                @if (Model.Reviews != null && Model.Reviews.Any())
+                {
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="review">
+                            <!-- Kullanıcı Avatarı -->
+                            <div class="user-avatar">
+                                @review.UserName.Substring(0, 1).ToUpper() <!-- Kullanıcı adının ilk harfi -->
+                            </div>
+                            <div class="review-content">
+                                <div class="review-header">
+                                    <strong>@review.UserName</strong>
+                                    <span>@review.Date.ToShortDateString()</span>
+                                </div>
+                                <!-- Yıldızlar -->
+                                <div class="rating-stars">
+                                    @for (int i = 0; i < review.Rating; i++)
+                                    {
+                                        <i class="fa-solid fa-star"></i>
+                                    }
+                                    @for (int i = review.Rating; i < 5; i++)
+                                    {
+                                        <i class="fa-regular fa-star"></i>
+                                    }
+                                </div>
+                                <p class="review-comment">@review.Comment</p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Henüz yorum bulunmamaktadır.</p>
+                }
+            </div>
+
+            <!-- Yorum Ekleme Formu -->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="add-review">
+                    <h4>Leave a Review</h4>
+                    <form method="post" asp-action="AddReview" asp-route-productId="@Model.Id">
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select id="rating" name="rating" class="form-control" required>
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Your Review</label>
+                            <textarea id="comment" name="comment" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    Yorum yapmak için lütfen <a asp-area="Identity" asp-page="/Account/Login">giriş yapın</a> veya <a asp-area="Identity" asp-page="/Account/Register">kayıt olun</a>.
+                </div>
+               
+            }
+        </div>
+    </div>
+</div>
+<!-- JavaScript Kodu -->
+    <script>
+        document.getElementById("completePurchase").addEventListener("click", function () {
+            // Sepette ürün var mı kontrol et
+            var cartItemsCount = getCartItemCount();  // Sepet item sayısını alacak bir fonksiyon
+
+            if (cartItemsCount > 0) {
+                // Eğer sepet doluysa, ödeme sayfasına yönlendir
+                document.getElementById("paymentLink").classList.remove("d-none");
+                alert("Sepetinizdeki ürünlerle ödeme sayfasına yönlendiriliyorsunuz.");
+                window.location.href = "/Card/Checkout";  // Ödeme sayfasına yönlendirme
+            } else {
+                // Sepette ürün yoksa, uyarı göster
+                alert("Sepetinizde ürün yok! Alışveriş yaparak ürün ekleyin.");
+            }
+        });
+
+        function getCartItemCount() {
+            // Sepet item sayısını kontrol eden bir fonksiyon
+            // Bu fonksiyon backend'den gelen veriye göre dinamik hale getirilebilir.
+            // Şu an için sepetin doluluğunu sabit olarak varsayıyoruz:
+            //         return 0; // 0 olan bir sepet için örnek
+        }
+    </script>
+ 
+    <style>
+        /* Yorumlar bölümü genel stil */
+        .reviews-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .reviews-section h3 {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+        /* Tek bir yorumun stili */
+        .review {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #007bff;
+        }
+
+        /* Kullanıcı avatarı */
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Yorum içeriği */
+        .review-content {
+            flex-grow: 1;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .review-header strong {
+                font-size: 18px;
+                color: #007bff;
+            }
+
+            .review-header span {
+                font-size: 14px;
+                color: #666;
+            }
+
+        /* Yıldızlar */
+        .rating-stars {
+            margin-bottom: 10px;
+        }
+
+            .rating-stars .fa-solid {
+                color: #ffc107; /* Altın rengi */
+            }
+
+            .rating-stars .fa-regular {
+                color: #ddd; /* Boş yıldız rengi */
+            }
+
+        /* Yorum metni */
+        .review-comment {
+            margin: 0;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        /* Yorum yok mesajı */
+        .reviews-section p {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>

@@ -1,0 +1,146 @@
+﻿@using ETicaretData.ViewModels
+@model ShippingDetails
+@{
+    ViewData["Title"] = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Ödeme Bilgileri</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="CheckOut" method="post" id="payment-form" class="card p-4 shadow">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Adınız</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">E-posta</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label">Adres</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="City" class="form-label">Şehir</label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Country" class="form-label">Ülke</label>
+                        <input asp-for="Country" class="form-control" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ZipCode" class="form-label">Posta Kodu</label>
+                    <input asp-for="ZipCode" class="form-control" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="card-element" class="form-label">Kredi Kartı Bilgileri</label>
+                    <div id="card-element" class="form-control p-3">
+                        
+                    </div>
+                    <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Ödeme Yap</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (ViewData.ModelState.ContainsKey("PaymentError"))
+{
+    <div class="alert alert-danger mt-4 text-center">
+        @ViewData.ModelState["PaymentError"].Errors.First().ErrorMessage
+    </div>
+}
+
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('pk_test_51R4qkrCieUQDIHraVxbjK9KdVUSfpb8bXUfHSQwyxSN6y2GMkYJgoQf84QcQ17fveWAyuCgU3UULaNKctNa1QVbJ00NsTapARx');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card', {
+            hidePostalCode: true
+        });
+        cardElement.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            // Submit butonunu devre dışı bırak
+            var submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'İşleniyor...';
+
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            }).then(function (result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Ödeme Yap';
+                } else {
+                    // Form verilerini topla
+                    var formData = {
+                        paymentMethodId: result.paymentMethod.id,
+                        name: document.getElementById('Name').value,
+                        email: document.getElementById('Email').value,
+                        address: document.getElementById('Address').value,
+                        city: document.getElementById('City').value,
+                        country: document.getElementById('Country').value,
+                        zipCode: document.getElementById('ZipCode').value,
+                        userName: document.getElementById('Name').value,
+                        addressTitle: "Teslimat Adresi",
+                        shippingInfo: "Standart Teslimat"
+                    };
+
+                    fetch('/Card/ProcessPayment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(function (response) {
+                        return response.json().then(function (data) {
+                            if (!response.ok) {
+                                throw new Error(data.error || 'Bir hata oluştu');
+                            }
+                            return data;
+                        });
+                    })
+                    .then(function (result) {
+                        if (result.status === 'succeeded') {
+                            window.location.href = result.redirectUrl;
+                        } else {
+                            var errorElement = document.getElementById('card-errors');
+                            errorElement.textContent = result.error;
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = 'Ödeme Yap';
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Hata:', error);
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = error.message;
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Ödeme Yap';
+                    });
+                }
+            });
+        });
+  </script>
+}
+
+

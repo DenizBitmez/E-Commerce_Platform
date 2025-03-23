@@ -1,0 +1,37 @@
+﻿@using ETicaretData.ViewModels
+@model IEnumerable<CategoryItem>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kategoriler</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Adı</th>
+            <th>Description</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>@category.Description</td>
+                <td>
+                    <a href="/Category/Edit/@category.Id" class="btn btn-primary">Düzenle</a>
+                    <a href="/Category/Delete/@category.Id" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Category/Create" class="btn btn-success">Kategori Ekle</a>
+

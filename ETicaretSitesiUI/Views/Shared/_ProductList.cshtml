@@ -1,0 +1,24 @@
+﻿@using ETicaretData.Entities
+@model IEnumerable<Product>
+
+@foreach (var item in Model)
+{
+    <div class="col">
+        <div class="card h-100">
+            <img src="@item.Image" alt="Alternate Text" />
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="Home/Details/@item.Id"></a>
+                    @item.Name
+                </h5>
+                <p class="card-text">@item.Description</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">@item.Price.ToString("c")</small>
+                <a class="btn btn-primary btn-sm float-end" href="Home/Details/@item.Id">
+                    <i class="fa-solid fa-angeles-right"></i>Urun Detay
+                </a>
+            </div>
+        </div>
+    </div>
+}

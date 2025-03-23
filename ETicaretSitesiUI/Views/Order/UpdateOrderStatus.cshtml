@@ -1,0 +1,19 @@
+﻿@using ETicaretData.ViewModels
+@model OrderViewModel
+@{
+    ViewData["Title"] = "UpdateOrderStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="UpdateOrderStatus" method="post">
+    <input type="hidden" asp-for="OrderId" />
+    <div class="form-group">
+        <label asp-for="orderState" class="control-label"></label>
+        <select asp-for="orderState" asp-items="ViewBag.OrderStatusList" class="form-control"></select>
+        <span asp-validation-for="orderState" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+

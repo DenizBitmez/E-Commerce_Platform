@@ -1,0 +1,38 @@
+﻿@model List<ETicaretData.ViewModels.OrderViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().OrderNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.First().OrderDate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Total)</th>
+            <th>@Html.DisplayNameFor(model => model.First().AddressTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Address)</th>
+            <th>@Html.DisplayNameFor(model => model.First().City)</th>
+            <th>@Html.DisplayNameFor(model => model.First().orderState)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OrderNumber</td>
+                <td>@item.OrderDate</td>
+                <td>@item.Total</td>
+                <td>@item.AddressTitle</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.orderState</td>
+                <td>
+                    <a asp-action="UpdateOrderStatus" asp-controller="Order" asp-route-orderId="@item.OrderId" class="btn btn-primary">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

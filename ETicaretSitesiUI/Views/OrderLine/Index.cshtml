@@ -1,0 +1,30 @@
+﻿@using ETicaretData.ViewModels
+@model IEnumerable<OrderLineViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Line List</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderLine in Model)
+        {
+            <tr>
+                <td>@orderLine.ProductName</td>
+                <td>@orderLine.Price.ToString("c")</td>
+                <td>@orderLine.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

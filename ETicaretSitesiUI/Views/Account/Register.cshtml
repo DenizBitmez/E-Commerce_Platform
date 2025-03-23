@@ -1,0 +1,146 @@
+﻿@using ETicaretData.ViewModels
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Register</h1>
+<hr />
+<hr />
+<form method="post">
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Mail)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.Mail, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Name)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Surname)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.Surname, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Address)
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.Address, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Ok</button>
+    </div>
+</form>
+
+<@* style>
+    body {
+        background-color: #f0f8ff; /* Açık mavi tonu */
+        font-family: Arial, sans-serif;
+    }
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Grupları */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Etiketler */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Input Alanları */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Input Alanlarına Odaklanınca */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buton Stili */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Butonun Üzerine Gelince */
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Başlık Stili */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* HR Stili */
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+}
+</style> *@

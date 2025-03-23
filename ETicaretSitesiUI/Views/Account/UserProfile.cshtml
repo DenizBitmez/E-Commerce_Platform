@@ -1,0 +1,131 @@
+﻿@using ETicaretData.ViewModels
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="profile-container">
+        <!-- Kullanıcı Bilgileri -->
+        <div class="user-info">
+            <h2>Merhaba, @Model.Name</h2>
+            <div class="info">
+                <p><strong>Adı:</strong> @Model.Name</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Telefon:</strong> @Model.Phone</p>
+                <p><strong>Adres:</strong> @Model.Address</p>
+            </div>
+            <a class="btn btn-primary" href="@Url.Action("Edit", "Account")">Bilgileri Güncelle</a>
+            
+        </div>
+
+        <hr>
+
+        <!-- Sipariş Bilgileri -->
+        <div class="order-info">
+            <h3>Geçmiş Siparişleriniz</h3>
+            @if (Model.Orders != null && Model.Orders.Any())
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sipariş ID</th>
+                            <th>Tarih</th>
+                            <th>Durum</th>
+                            <th>Toplam Tutar</th>
+                            <th>Kargo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td>@order.OrderId</td>
+                                <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                <td>@order.orderState</td>
+                                <td>@order.Total</td>
+                                <td>@order.ShippingInfo</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Henüz siparişiniz yok.</p>
+            }
+        </div>
+      @*   <div class="profile-container">
+            <!-- Geri Dön Butonu -->
+            <button class="btn btn-secondary" onclick="window.location.href='@Url.Action("Index", "Card")'">Geri Dön</button>
+        </div> *@
+    </div>
+</div>
+
+<!-- CSS Stili -->
+<style>
+    .container {
+        margin-top: 20px;
+    }
+    .profile-container {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .user-info {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .user-info h2 {
+        color: #333;
+        font-size: 24px;
+    }
+    .info p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+    .order-info {
+        margin-top: 30px;
+    }
+    .order-info h3 {
+        font-size: 20px;
+        color: #333;
+    }
+    table {
+        width: 100%;
+        margin-top: 15px;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f7f7f7;
+    }
+    td {
+        font-size: 14px;
+    }
+    hr {
+        margin: 20px 0;
+    }
+</style>
+
+

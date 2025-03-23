@@ -1,0 +1,62 @@
+﻿@using ETicaretData.ViewModels
+@model ListViewModel
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var searchQuery = Context.Request.Query["search"];
+    var minPriceQuery = Context.Request.Query["minPrice"];
+    var maxPriceQuery = Context.Request.Query["maxPrice"];
+}
+
+<form method="get" action="/Home/List" class="p-3 bg-light rounded shadow-sm">
+    <div class="row g-2">
+        <!-- Ürün Adı Arama -->
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Ürün Ara" value="@searchQuery">
+        </div>
+
+        <!-- Min Fiyat -->
+        <div class="col-md-3">
+            <input type="number" name="minPrice" class="form-control" placeholder="Min Fiyat" value="@minPriceQuery">
+        </div>
+
+        <!-- Max Fiyat -->
+        <div class="col-md-3">
+            <input type="number" name="maxPrice" class="form-control" placeholder="Max Fiyat" value="@maxPriceQuery">
+        </div>
+
+        <!-- Filtreleme Butonu -->
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-filter"></i> Filtrele
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_GetCategoryList", Model.Categories)
+    </div>
+    <div class="col-md-9">
+        @if (Model.Products.Count == 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i> Bu kategoride bir ürün bulunamadı.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i> <strong>@Model.Products.Count</strong> adet ürün bulundu.
+            </div>
+        }
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @Html.Partial("_ProductList", Model.Products)
+        </div>
+    </div>
+</div>
+ 

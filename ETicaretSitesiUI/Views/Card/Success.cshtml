@@ -1,0 +1,66 @@
+﻿@* @* @using ETicaretData.ViewModels *@
+@* @model ETicaretData.ViewModels.OrderViewModel
+@model ETicaretData.ViewModels.OrderViewModel *@
+@* @{
+    ViewData["Title"] = "Success";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+} *@
+
+@* <div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h2 class="text-center">Siparişiniz Başarıyla Alındı!</h2>
+        </div>
+        <div class="card-body">
+            <p class="lead">Sipariş numaranız: <strong>@Model.OrderNumber</strong></p>
+            <p>Siparişinizi takip etmek için <a href="/Account/Profile">buraya tıklayın</a>.</p>
+            <p>Ana sayfaya dönmek için <a href="/Card/Index">buraya tıklayın</a>.</p>
+        </div>
+    </div>
+</div> *@ 
+@model ETicaretData.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Sipariş Başarılı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h2 class="text-center">Siparişiniz Başarıyla Alındı!</h2>
+        </div>
+        <div class="card-body">
+            <p class="lead">Sipariş numaranız: <strong>@Model.OrderNumber</strong></p>
+            <p>Sipariş tarihi: <strong>@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</strong></p>
+            <p>Toplam tutar: <strong>@Model.Total.ToString("C")</strong></p>
+
+            <h4 class="mt-4">Sipariş Detayları</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Adet</th>
+                        <th>Fiyat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderLines)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="mt-4">
+                <p>Siparişinizi takip etmek için <a href="/Account/Profile">buraya tıklayın</a>.</p>
+                <p>Ana sayfaya dönmek için <a href="/Card/Index">buraya tıklayın</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+

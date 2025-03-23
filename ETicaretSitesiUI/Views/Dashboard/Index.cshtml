@@ -1,0 +1,161 @@
+﻿@using ETicaretData.ViewModels
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h1>Admin Paneli</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="categorySalesChart" width="400" height="200"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="salesChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <canvas id="topProductsChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <canvas id="stockChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Kategori Bazlı Satışlar
+        var categorySalesData = @Html.Raw(Json.Serialize(Model.CategorySales));
+        var ctx1 = document.getElementById('categorySalesChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: categorySalesData.map(item => item.categoryName),
+                datasets: [{
+                    label: 'Kategori Bazlı Satışlar',
+                    data: categorySalesData.map(item => item.totalSales),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Kategori Bazlı Satışlar'
+                    }
+                }
+            }
+        });
+
+        // Son 7 Gün Satışlar
+        var last7DaysSalesData = @Html.Raw(Json.Serialize(Model.Last7DaysSales));
+        var ctx2 = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: last7DaysSalesData.map(item => new Date(item.date).toLocaleDateString()),
+                datasets: [{
+                    label: 'Satışlar',
+                    data: last7DaysSalesData.map(item => item.totalSales),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Son 7 Gün Satışlar'
+                    }
+                }
+            }
+        });
+
+        // En Çok Satılan Ürünler
+        var topProductsData = @Html.Raw(Json.Serialize(Model.TopSellingProducts));
+        var ctx3 = document.getElementById('topProductsChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: topProductsData.map(item => item.productName),
+                datasets: [{
+                    label: 'Satış Sayısı',
+                    data: topProductsData.map(item => item.salesCount),
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'En Çok Satılan Ürünler'
+                    }
+                }
+            }
+        });
+
+        var stockData = @Html.Raw(Json.Serialize(Model.StockStatus));
+        var ctx4 = document.getElementById('stockChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: stockData.map(item => item.productName),
+                datasets: [{
+                    label: 'Stok Miktarı',
+                    data: stockData.map(item => item.stock),
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Stok Durumu'
+                    }
+                }
+            }
+        });
+    </script>
+}
+
+
