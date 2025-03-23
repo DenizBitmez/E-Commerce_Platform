@@ -5,7 +5,7 @@
 }
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -42,13 +42,10 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category.Description)
+                    @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
-                <td>
                 <td>
                     <img src="@item.Image" class="m-25" style="width:100px; height:auto;" />
-                </td>
-
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Stock)
@@ -63,13 +60,63 @@
                     @Html.DisplayFor(modelItem => item.IsApproved)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<style>
+    .btn-table {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        margin: 2px;
+    }
+
+    .btn-edit {
+        background-color: #ffc107; /* Sarı renk */
+        color: #000;
+        border: 1px solid #ffc107;
+    }
+
+        .btn-edit:hover {
+            background-color: #e0a800; /* Daha koyu sarı */
+            border-color: #e0a800;
+            transform: translateY(-1px);
+        }
+
+    .btn-details {
+        background-color: #17a2b8; /* Mavi renk */
+        color: #fff;
+        border: 1px solid #17a2b8;
+    }
+
+        .btn-details:hover {
+            background-color: #138496; /* Daha koyu mavi */
+            border-color: #138496;
+            transform: translateY(-1px);
+        }
+
+    .btn-delete {
+        background-color: #dc3545; /* Kırmızı renk */
+        color: #fff;
+        border: 1px solid #dc3545;
+    }
+
+        .btn-delete:hover {
+            background-color: #c82333; /* Daha koyu kırmızı */
+            border-color: #c82333;
+            transform: translateY(-1px);
+        }
+</style>
 
 

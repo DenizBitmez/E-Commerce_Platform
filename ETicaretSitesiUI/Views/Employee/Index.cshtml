@@ -30,13 +30,13 @@
                 <td>@employee.Position</td>
                 <td>@employee.HireDate.ToShortDateString()</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId">Düzenle</a> |
-                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId">Sil</a>
+                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Düzenle</a> |
+                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Sil</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-action="Create">Yeni Çalışan Ekle</a>
+<a asp-action="Create" class="btn btn-primary">Yeni Çalışan Ekle</a>
 

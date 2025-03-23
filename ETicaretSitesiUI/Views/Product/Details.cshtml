@@ -53,7 +53,77 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="List" asp-controller="Home">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to List</a>
 </div>
 
+<style>
+    /* Genel stil */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    h4 {
+        color: #343a40;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    hr {
+        border-top: 2px solid #dee2e6;
+    }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    dt {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    dd {
+        color: #6c757d;
+    }
+
+    img {
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Buton stilleri */
+    .btn-details {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background-color: #ffc107; /* Sarı renk */
+        color: #000;
+        border: 1px solid #ffc107;
+    }
+
+        .btn-edit:hover {
+            background-color: #e0a800; /* Daha koyu sarı */
+            border-color: #e0a800;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background-color: #6c757d; /* Gri renk */
+        color: #fff;
+        border: 1px solid #6c757d;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268; /* Daha koyu gri */
+            border-color: #5a6268;
+            transform: translateY(-2px);
+        }
+</style>

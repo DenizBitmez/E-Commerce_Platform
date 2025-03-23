@@ -7,7 +7,7 @@
 
 <h1>Roles</h1>
 <hr />
-<a asp-action="Create">Create Role</a>
+<a asp-action="Create" class="btn btn-primary">Create Role</a>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -21,8 +21,8 @@
             <tr>
                 <td>@item.Name</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
                 </td>
             </tr>
         }

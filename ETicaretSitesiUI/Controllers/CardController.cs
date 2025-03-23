@@ -119,16 +119,16 @@ namespace ETicaretSitesiUI.Controllers
 
                 var options = new PaymentIntentCreateOptions
                 {
-                    Amount = (long)(totalAmount * 100), // Stripe amount is in cents
+                    Amount = (long)(totalAmount * 100),
                     Currency = "try",
-                    PaymentMethod = paymentMethodId, // Test kartı için
+                    PaymentMethod = paymentMethodId, 
                     Confirm = true,
                     Description = $"Sipariş - {details.Name}",
                     ReceiptEmail = details.Email,
                     AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
                     {
                         Enabled = true,
-                        AllowRedirects = "never" // Yönlendirme tabanlı ödeme yöntemlerini devre dışı bırak
+                        AllowRedirects = "never" 
                     },
                     Shipping = new ChargeShippingOptions
                     {

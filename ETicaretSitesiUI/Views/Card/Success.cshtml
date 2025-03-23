@@ -57,10 +57,55 @@
             </table>
 
             <div class="mt-4">
-                <p>Siparişinizi takip etmek için <a href="/Account/UserProfile">buraya tıklayın</a>.</p>
-                <p>Ana sayfaya dönmek için <a href="/Card/Index">buraya tıklayın</a>.</p>
+                <p>Siparişinizi takip etmek için <a href="/Account/UserProfile" class="btn-custom">buraya tıklayın</a>.</p>
+                <p>Ana sayfaya dönmek için <a href="/Card/Index" class="btn-custom-secondary">buraya tıklayın</a>.</p>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-custom {
+        background: linear-gradient(45deg, #28a745, #218838); /* Gradient yeşil renk */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px; /* Yuvarlak köşeler */
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin: 5px;
+    }
+
+        .btn-custom:hover {
+            background: linear-gradient(45deg, #218838, #1e7e34); /* Daha koyu gradient yeşil */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Hover durumunda gölgeyi artır */
+            transform: translateY(-2px); /* Hafif yukarı hareket */
+        }
+
+    .btn-custom-secondary {
+        background: linear-gradient(45deg, #6c757d, #5a6268); /* Gradient gri renk */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px; /* Yuvarlak köşeler */
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin: 5px;
+    }
+
+        .btn-custom-secondary:hover {
+            background: linear-gradient(45deg, #5a6268, #495057); /* Daha koyu gradient gri */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Hover durumunda gölgeyi artır */
+            transform: translateY(-2px); /* Hafif yukarı hareket */
+        }
+</style>
+
 
