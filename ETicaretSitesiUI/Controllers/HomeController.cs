@@ -33,7 +33,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var product = _productDal.GetAll(p => p.IsHome && p.IsApproved);
-        return View(product);
+		return View(product);
     }
     [AllowAnonymous]
     public IActionResult List(int? id, string? search, decimal? minPrice, decimal? maxPrice)

@@ -39,12 +39,22 @@ namespace ETicaretSitesiUI.Controllers
                 return View();
             }
             ViewBag.Total = card.Sum(x => x.Product.Price * x.Quantity).ToString("c");
-            SesionHelper.Count = card.Count();
+			ViewBag.DirectLineSecret = GetDirectLineSecret();
+			SesionHelper.Count = card.Count();
             return View(card);
 
 
         }
-        public IActionResult Buy(int id)
+
+		private string GetDirectLineSecret()
+		{
+			var config = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json")
+				.Build();
+
+			return config["BotSettings:DirectLineSecret"];
+		}
+		public IActionResult Buy(int id)
         {
             if (SesionHelper.GetObjectFromJson<List<CardItem>>(HttpContext.Session, "Card") == null)
             {
